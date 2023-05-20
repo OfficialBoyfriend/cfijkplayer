@@ -1,4 +1,4 @@
-# fijkplayer (Video player plugin for Flutter) Flutter 媒体播放器
+# cfijkplayer (Video player plugin for Flutter) Flutter 媒体播放器
 
 ✨ **[手把手带你写 Flutter 系统音量插件](https://www.yuque.com/befovy/share/flutter_volume)**  ✨  **[Flutter 多版本管理工具 fvm](https://github.com/befovy/fvm)** ✨
 
@@ -23,7 +23,7 @@ A Flutter media player plugin for iOS and android based on [ijkplayer](https://g
 
 ## Installation 安装
 
-Add `fijkplayer` as a [dependency in your pubspec.yaml file](https://flutter.io/using-packages/). 
+Add `cfijkplayer` as a [dependency in your pubspec.yaml file](https://flutter.io/using-packages/). 
 
 [![pub package](https://img.shields.io/pub/v/fijkplayer.svg)](https://pub.dartlang.org/packages/fijkplayer)
 
