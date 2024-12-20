@@ -123,13 +123,10 @@ class FijkSliderColors {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FijkSliderColors &&
-          runtimeType == other.runtimeType &&
-          hashCode == other.hashCode;
+      other is FijkSliderColors && runtimeType == other.runtimeType && hashCode == other.hashCode;
 
   @override
-  int get hashCode =>
-      hashValues(playedColor, bufferedColor, cursorColor, baselineColor);
+  int get hashCode => Object.hash(playedColor, bufferedColor, cursorColor, baselineColor);
 }
 
 class _SliderPainter extends CustomPainter {
@@ -141,8 +138,7 @@ class _SliderPainter extends CustomPainter {
 
   final FijkSliderColors colors;
 
-  _SliderPainter(this.v, this.cv, this.dragging,
-      {this.colors = const FijkSliderColors()});
+  _SliderPainter(this.v, this.cv, this.dragging, {this.colors = const FijkSliderColors()});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -204,12 +200,10 @@ class _SliderPainter extends CustomPainter {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is _SliderPainter && hashCode == other.hashCode;
+  bool operator ==(Object other) => identical(this, other) || other is _SliderPainter && hashCode == other.hashCode;
 
   @override
-  int get hashCode => hashValues(v, cv, dragging, colors);
+  int get hashCode => Object.hash(v, cv, dragging, colors);
 
   @override
   bool shouldRepaint(_SliderPainter oldDelegate) {

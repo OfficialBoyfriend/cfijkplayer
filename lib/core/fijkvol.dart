@@ -39,14 +39,10 @@ class FijkVolumeEvent {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is FijkVolumeEvent &&
-          vol != 0.0 &&
-          vol != 1.0 &&
-          hashCode == other.hashCode);
+      identical(this, other) || (other is FijkVolumeEvent && vol != 0.0 && vol != 1.0 && hashCode == other.hashCode);
 
   @override
-  int get hashCode => hashValues(vol, sui, type);
+  int get hashCode => Object.hash(vol, sui, type);
 }
 
 class _VolumeValueNotifier extends ValueNotifier<FijkVolumeEvent> {
@@ -79,8 +75,7 @@ class FijkVolume {
 
   static FijkVolume _instance = FijkVolume._();
 
-  static _VolumeValueNotifier _notifier =
-      _VolumeValueNotifier(FijkVolumeEvent(vol: 0, sui: false, type: 0));
+  static _VolumeValueNotifier _notifier = _VolumeValueNotifier(FijkVolumeEvent(vol: 0, sui: false, type: 0));
 
   static const double _defaultStep = 1.0 / 16.0;
 
@@ -97,11 +92,9 @@ class FijkVolume {
   /// return the system volume value after set.
   static Future<double> setVol(double vol) async {
     if (vol < 0.0 || vol > 1.0) {
-      return Future.error(ArgumentError.value(
-          vol, "step must be not null and in range [0.0, 1.0]"));
+      return Future.error(ArgumentError.value(vol, "step must be not null and in range [0.0, 1.0]"));
     } else {
-      var afterSet = await FijkPlugin._channel
-          .invokeMethod("volumeSet", <String, dynamic>{'vol': vol});
+      var afterSet = await FijkPlugin._channel.invokeMethod("volumeSet", <String, dynamic>{'vol': vol});
       if (afterSet != null) return Future.value(afterSet);
       return Future.value(0);
     }
@@ -120,11 +113,9 @@ class FijkVolume {
   /// the return volume value may be not equals to the current volume + step.
   static Future<double> up({double step = _defaultStep}) async {
     if (step < 0.0 || step > 1.0) {
-      return Future.error(ArgumentError.value(
-          step, "step must be not null and in range [0.0, 1.0]"));
+      return Future.error(ArgumentError.value(step, "step must be not null and in range [0.0, 1.0]"));
     } else {
-      var vol = await FijkPlugin._channel
-          .invokeMethod("volumeUp", <String, dynamic>{'step': step});
+      var vol = await FijkPlugin._channel.invokeMethod("volumeUp", <String, dynamic>{'step': step});
       if (vol != null) return Future.value(vol);
       return Future.value(0);
     }
@@ -135,11 +126,9 @@ class FijkVolume {
   /// the return volume value may be not equals to the current volume - step.
   static Future<double> down({double step = _defaultStep}) async {
     if (step < 0.0 || step > 1.0) {
-      return Future.error(ArgumentError.value(
-          step, "step must be not null and in range [0.0, 1.0]"));
+      return Future.error(ArgumentError.value(step, "step must be not null and in range [0.0, 1.0]"));
     } else {
-      var vol = await FijkPlugin._channel
-          .invokeMethod("volumeDown", <String, dynamic>{'step': step});
+      var vol = await FijkPlugin._channel.invokeMethod("volumeDown", <String, dynamic>{'step': step});
       if (vol != null) return Future.value(vol);
       return Future.value(0);
     }
@@ -152,8 +141,7 @@ class FijkVolume {
     if (mode < hideUIWhenPlayable || hideUIWhenPlayable > alwaysShowUI)
       return Future.error(ArgumentError.notNull("mode"));
     else
-      return FijkPlugin._channel
-          .invokeMethod("volUiMode", <String, dynamic>{'mode': mode});
+      return FijkPlugin._channel.invokeMethod("volUiMode", <String, dynamic>{'mode': mode});
   }
 
   void _onVolCallback(double vol, bool ui) {
@@ -240,7 +228,7 @@ class _FijkVolumeWatcherState extends State<FijkVolumeWatcher> {
       var entry = OverlayEntry(builder: (_) => widget);
       _entry = entry;
       var overlay = Overlay.of(context);
-      if (overlay != null) overlay.insert(entry);
+      overlay.insert(entry);
     }
     _timer = Timer(const Duration(milliseconds: 800), () {
       _entry?.remove();

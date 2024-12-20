@@ -220,13 +220,10 @@ class FijkValue {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is FijkValue &&
-          runtimeType == other.runtimeType &&
-          hashCode == other.hashCode;
+      identical(this, other) || other is FijkValue && runtimeType == other.runtimeType && hashCode == other.hashCode;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         prepared,
         completed,
         state,
@@ -334,20 +331,16 @@ class FijkException implements Exception {
 
   static FijkException fromPlatformException(PlatformException e) {
     int? code = int.tryParse(e.code);
-    return code != null
-        ? FijkException(code, e.message)
-        : FijkException(unknown, e.message);
+    return code != null ? FijkException(code, e.message) : FijkException(unknown, e.message);
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FijkException &&
-          runtimeType == other.runtimeType &&
-          hashCode == other.hashCode;
+      other is FijkException && runtimeType == other.runtimeType && hashCode == other.hashCode;
 
   @override
-  int get hashCode => hashValues(code, message);
+  int get hashCode => Object.hash(code, message);
 
   @override
   String toString() {
